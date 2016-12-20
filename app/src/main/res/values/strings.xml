@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Livelator</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_shout"> Livelator</string>
+    <string name="website_link">www.livelator.com</string>
+    <string name="action_settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="speech_to_speech">Live Audio</string>
+    <string name="speech_to_text">Translated Text</string>
+    <!--Titles strings-->
+    <string name="live_translation_title">Live Translation</string>
+    <string name="translated_text_title">Subtitles</string>
+    <string name="profile_title"> My Profile</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!--Strings for home screen view-->
+    <string name="live_translation_lable">Live Translation</string>
+    <string name="translated_text_view_lable">Live Subtitles</string>
+    <string name="from_lang_lable">Translate From</string>
+    <string name="to_lang_lable">Translate To</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

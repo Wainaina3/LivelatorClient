@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_speech"
+            android:icon="@drawable/speech_speech"
+            android:title="@string/speech_to_speech" />
+        <item
+            android:id="@+id/nav_subtitles"
+            android:icon="@drawable/speech_text"
+            android:title="@string/speech_to_text" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/account"
+            android:title="@string/profile" />
+    </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>
