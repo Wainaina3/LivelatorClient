@@ -35,7 +35,7 @@ public class Audio {
     int minBufSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat);
     private boolean status = true;
 
-    public void InitializeRecording() {
+    public void initializeRecording() {
     streamingAudio = audioOn;
     }
 

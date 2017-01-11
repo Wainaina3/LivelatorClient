@@ -26,6 +26,8 @@ public class Translate_Text extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private Audio audioController;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -34,6 +36,8 @@ public class Translate_Text extends Fragment {
 
     public Translate_Text() {
         // Required empty public constructor
+        audioController = new Audio();
+        audioController.initializeRecording();
     }
 
     /**
@@ -77,6 +81,7 @@ public class Translate_Text extends Fragment {
 
     }
 
+    //Imageview holding the pause play mipmaps
     private void play_pause_button(View view){
         ImageView play_pause_s;
         play_pause_s=(ImageView)view.findViewById(R.id.play_pause_t);
@@ -90,6 +95,7 @@ public class Translate_Text extends Fragment {
         });
     }
 
+    //Toggle between play and pause
     private void change_play_pause(View view) {
 
         //check the view and change accordingly
@@ -101,12 +107,14 @@ public class Translate_Text extends Fragment {
                 play_pause.setImageResource(R.mipmap.pause_circle);
                 play_pause.setTag("pause");
                 audioOn = true;
+                audioController.startStreaming();
 
             }
             else{
                 play_pause.setImageResource(R.mipmap.play_circle);
                 play_pause.setTag("play");
                 audioOn = false;
+                audioController.recorder.release();
             }
 
         }

@@ -26,6 +26,8 @@ public class Translated_Speech extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private Audio audioController;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -34,6 +36,9 @@ public class Translated_Speech extends Fragment {
 
     public Translated_Speech() {
         // Required empty public constructor
+
+        audioController = new Audio();
+        audioController.initializeRecording();
     }
 
     /**
@@ -104,12 +109,14 @@ public class Translated_Speech extends Fragment {
                 play_pause.setImageResource(R.mipmap.pause_circle);
                 play_pause.setTag("pause");
                 audioOn = true;
+                audioController.startStreaming();
 
             }
             else{
                 play_pause.setImageResource(R.mipmap.play_circle);
                 play_pause.setTag("play");
                 audioOn = false;
+                audioController.recorder.release();
             }
 
         }

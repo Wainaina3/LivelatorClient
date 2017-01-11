@@ -10,10 +10,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import com.ibm.mobilefirstplatform.clientsdk.android.core.api.*;
+import com.ibm.mobilefirstplatform.clientsdk.android.security.mca.api.MCAAuthorizationManager;
+
+import org.json.JSONObject;
+
 
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,Translate_Text.OnFragmentInteractionListener,
@@ -54,6 +60,32 @@ public class home extends AppCompatActivity
                     .add(R.id.fragment_container, translated_speech_frag).commit();
 
             getSupportActionBar().setTitle(R.string.live_translation_title);
+
+            //Initialize BMS client
+
+            BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_US_SOUTH);
+
+            BMSClient.getInstance().setAuthorizationManager(
+                    MCAAuthorizationManager.createInstance(this, "b28db5ce-e312-4518-a3fd-34bdd43cc970"));
+
+            Request request = new Request("http://my-mobile-backend.mybluemix.net/protected", Request.GET);
+            request.send(this, new ResponseListener() {
+                @Override
+                public void onSuccess (Response response) {
+                    Log.d("Myapp", "onSuccess :: " + response.getResponseText());
+                }
+                @Override
+                public void onFailure (Response response, Throwable t, JSONObject extendedInfo) {
+                    if (null != t) {
+                        Log.d("Myapp", "onFailure :: " + t.getMessage());
+                    } else if (null != extendedInfo) {
+                        Log.d("Myapp", "onFailure :: " + extendedInfo.toString());
+                    } else {
+                        Log.d("Myapp", "onFailure :: " + response.getResponseText());
+                    }
+                }
+            });
+            //end of authorization trial
 
         }
 
