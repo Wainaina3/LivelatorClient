@@ -20,6 +20,7 @@ public class home extends AppCompatActivity
         Translated_Speech.OnFragmentInteractionListener,Profile.OnFragmentInteractionListener {
     //Define objects
     protected DrawerLayout drawer;
+    public static boolean audioOn = false;
 
 
     @Override

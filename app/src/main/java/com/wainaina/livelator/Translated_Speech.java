@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import static com.wainaina.livelator.home.audioOn;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,11 +103,13 @@ public class Translated_Speech extends Fragment {
             if(play_pause.getTag().equals("play")){
                 play_pause.setImageResource(R.mipmap.pause_circle);
                 play_pause.setTag("pause");
+                audioOn = true;
 
             }
             else{
                 play_pause.setImageResource(R.mipmap.play_circle);
                 play_pause.setTag("play");
+                audioOn = false;
             }
 
         }
