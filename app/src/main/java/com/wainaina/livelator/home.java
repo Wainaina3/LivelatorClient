@@ -68,7 +68,7 @@ public class home extends AppCompatActivity
             BMSClient.getInstance().setAuthorizationManager(
                     MCAAuthorizationManager.createInstance(this, "b28db5ce-e312-4518-a3fd-34bdd43cc970"));
 
-            Request request = new Request("http://my-mobile-backend.mybluemix.net/protected", Request.GET);
+            Request request = new Request("http://livelator.mybluemix.net", Request.GET);
             request.send(this, new ResponseListener() {
                 @Override
                 public void onSuccess (Response response) {
@@ -83,10 +83,11 @@ public class home extends AppCompatActivity
                     } else {
                         Log.d("Myapp", "onFailure :: " + response.getResponseText());
                     }
+                    Log.d("Livelator", "Failure :: " + response.getResponseText());
                 }
             });
             //end of authorization trial
-
+            Log.d("Livelator", "Send a request for authorization");
         }
 
     }

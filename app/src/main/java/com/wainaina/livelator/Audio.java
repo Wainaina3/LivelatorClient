@@ -58,7 +58,7 @@ public class Audio {
                     Log.d("VS","Buffer created of size " + minBufSize);
                     DatagramPacket packet;
 
-                    final InetAddress livelatorServer = InetAddress.getByName("1233.12313.131.3");
+                    final InetAddress livelatorServer = InetAddress.getByName("http://livelator.mybluemix.net/audio");
                     Log.d("VS", "Address retrieved");
 
                     recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,sampleRate,channelConfig,audioFormat,minBufSize*10);
