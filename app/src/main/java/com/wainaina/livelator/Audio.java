@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import static com.wainaina.livelator.home.audioOn;
@@ -25,7 +28,7 @@ public class Audio {
     private boolean streamingAudio = false;
     public byte[] buffer;
     public static DatagramSocket socket;
-    private int port=50005;
+    private int port=8080;
 
     AudioRecord recorder;
 
@@ -58,7 +61,12 @@ public class Audio {
                     Log.d("VS","Buffer created of size " + minBufSize);
                     DatagramPacket packet;
 
-                    final InetAddress livelatorServer = InetAddress.getByName("http://livelator.mybluemix.net/audio");
+                    final InetAddress livelatorServer = InetAddress.getByName("https://livelator.mybluemix.net");
+                    //SocketAddress livelatorAddress = new InetSocketAddress(livelatorServer, port);
+
+                   // final InetAddress livelatorServer = InetAddress.getByName("http://livelator.mybluemix.net");
+                   // final SocketAddress livelatorAddress = new InetSocketAddress(livelatorServer);
+
                     Log.d("VS", "Address retrieved");
 
                     recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,sampleRate,channelConfig,audioFormat,minBufSize*10);
@@ -70,7 +78,7 @@ public class Audio {
 
                         //Recording audio from mic into buffer
                         minBufSize = recorder.read(buffer, 0, buffer.length);
-
+                        //I am going to code you sana sana sana Just wait and see. I am King David.
                         //put buffer into a packet
                         packet = new DatagramPacket(buffer,buffer.length,livelatorServer,port);
 

@@ -37,4 +37,20 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- default model/voice -->
+    <string name="modelDefault">en-US_BroadbandModel</string>
+    <string name="voiceDefault">en-US_MichaelVoice</string>
+
+    <!--STTCredentials -->
+    <string name="sttusername">1a9c4a3c-b9d4-485b-9b9b-f249ae21281a</string>
+    <string name="sttpassword">xgeMw8cypqeg</string>
+
+    <!--credential validations-->
+    <string name="defaultUsername">livelatoradmin</string>
+
+
+    <string name="contectDescriptionPlayPause">Play pause image view</string>
+    <string name="textview">TextView</string>
+
 </resources>

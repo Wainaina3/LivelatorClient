@@ -1,6 +1,8 @@
 package com.wainaina.livelator;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +22,9 @@ import com.ibm.mobilefirstplatform.clientsdk.android.security.mca.api.MCAAuthori
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 
 public class home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,Translate_Text.OnFragmentInteractionListener,
@@ -27,6 +32,7 @@ public class home extends AppCompatActivity
     //Define objects
     protected DrawerLayout drawer;
     public static boolean audioOn = false;
+    protected static Context hContext = null;
 
 
     @Override
@@ -36,6 +42,7 @@ public class home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        hContext = this.getApplicationContext();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,31 +70,7 @@ public class home extends AppCompatActivity
 
             //Initialize BMS client
 
-            BMSClient.getInstance().initialize(getApplicationContext(), BMSClient.REGION_US_SOUTH);
-
-            BMSClient.getInstance().setAuthorizationManager(
-                    MCAAuthorizationManager.createInstance(this, "b28db5ce-e312-4518-a3fd-34bdd43cc970"));
-
-            Request request = new Request("http://livelator.mybluemix.net", Request.GET);
-            request.send(this, new ResponseListener() {
-                @Override
-                public void onSuccess (Response response) {
-                    Log.d("Myapp", "onSuccess :: " + response.getResponseText());
-                }
-                @Override
-                public void onFailure (Response response, Throwable t, JSONObject extendedInfo) {
-                    if (null != t) {
-                        Log.d("Myapp", "onFailure :: " + t.getMessage());
-                    } else if (null != extendedInfo) {
-                        Log.d("Myapp", "onFailure :: " + extendedInfo.toString());
-                    } else {
-                        Log.d("Myapp", "onFailure :: " + response.getResponseText());
-                    }
-                    Log.d("Livelator", "Failure :: " + response.getResponseText());
-                }
-            });
-            //end of authorization trial
-            Log.d("Livelator", "Send a request for authorization");
+            initializeBMSClient();
         }
 
     }
@@ -101,6 +84,65 @@ public class home extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    //Get models
+    private static class initializeBMSClientClass extends AsyncTask<Void, Void, Boolean> {
+
+        protected Boolean doInBackground(Void... none) {
+            Boolean loginResult;
+            try {
+
+                //Initialize BMS client
+
+                BMSClient.getInstance().initialize(hContext, BMSClient.REGION_US_SOUTH);
+
+                BMSClient.getInstance().setAuthorizationManager(
+                        MCAAuthorizationManager.createInstance(hContext, "b28db5ce-e312-4518-a3fd-34bdd43cc970"));
+
+                Request request = new Request("https://livelator.mybluemix.net/audio", Request.GET);
+                request.send(hContext, new ResponseListener() {
+                    @Override
+                    public void onSuccess (Response response) {
+                        Log.d("Myapp", "onSuccess :: " + response.getResponseText());
+
+                    }
+                    @Override
+                    public void onFailure (Response response, Throwable t, JSONObject extendedInfo) {
+                        if (null != t) {
+                            Log.d("Myapp", "onFailure :: " + t.getMessage());
+                        } else if (null != extendedInfo) {
+                            Log.d("Myapp", "onFailure :: " + extendedInfo.toString());
+                        } else {
+                            Log.d("Myapp", "onFailure :: " + response.getResponseText());
+                        }
+                        Log.d("Livelator", "Failure :: " + response.getResponseText());
+                    }
+                });
+                //end of authorization trial
+                Log.d("Livelator", "Send a request for authorization");
+                loginResult = Boolean.TRUE;
+            }
+            catch (Exception ioe) {
+                Log.e("VS", "IOException");
+                loginResult = Boolean.FALSE;
+            }
+
+            return loginResult;
+
+        }
+    }
+
+    public void initializeBMSClient() {
+
+        Thread streamThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+              new initializeBMSClientClass().doInBackground();
+            }
+        });
+
+        streamThread.start();
     }
 
     @Override
